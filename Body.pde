@@ -5,8 +5,8 @@ class Body {
   Vector pos;
   Vector vel;
 
-  BigDecimal mass;
-  BigDecimal radius;
+  double mass;
+  double radius;
   color _color;
 
   ArrayList<Vector> trailPoints = new ArrayList<Vector>();
@@ -31,28 +31,28 @@ class Body {
       if (other == this)
         continue;
         
-      BigDecimal r = pos.dist(other.pos);
+      double r = pos.dist(other.pos);
       
-      BigDecimal m = mass;
-      BigDecimal M = other.mass;
+      double m = mass;
+      double M = other.mass;
       
-      BigDecimal GmM = G.multiply( m.multiply(M) );
+      double GmM = G * m*M;
       
-      BigDecimal r2 = r.multiply(r);
+      double r2 = r * r;
       
-      BigDecimal f = GmM.divide( r2, RoundingMode.HALF_UP );
+      double f = GmM / r2;
       
-      BigDecimal a = f.divide(mass).multiply( bd(Time.dt()) );
+      double a = (f / mass) * Time.dt();
       
       Vector dir = other.pos.sub(pos).normalized();
       
-      vel = vel.add( dir.mult(a).mult( bd(Time.dt()) ) );
+      vel = vel.add( dir.mult(a) );
     }
   }
 
   void tick()
   {
-    pos = pos.add(vel);
+    pos = pos.add(vel.mult( bd(Time.dt()) ));
   }
 
   void draw()
@@ -66,7 +66,7 @@ class Body {
     
     Vector viewPos = pos.div(scaleFactor).sub(viewOffset);
     
-    circle(viewPos.x.floatValue(), viewPos.y.floatValue(), radius.divide(scaleFactor, RoundingMode.HALF_UP).floatValue() );
+    circle((float) viewPos.x, (float) viewPos.y, (float)(radius / scaleFactor) );
 
     
     if (frameCount % 3 == 0)
@@ -93,7 +93,7 @@ class Body {
       Vector p = trailPoints.get(i);
       
       Vector viewPos = p.div(scaleFactor).sub(viewOffset);
-      vertex(viewPos.x.floatValue(), viewPos.y.floatValue());
+      vertex((float)viewPos.x, (float)viewPos.y);
     }
 
     endShape();

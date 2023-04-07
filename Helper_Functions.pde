@@ -1,19 +1,19 @@
-BigDecimal bd(String n)
+double bd(String n)
 {
- return new BigDecimal(n); 
+ return Double.parseDouble(n); 
 }
 
-BigDecimal bd(float n)
+double bd(float n)
 {
- return new BigDecimal(n); 
+ return (double)n;
 }
 
-BigDecimal bd(int n)
+double bd(int n)
 {
- return new BigDecimal(n); 
+ return (double)n;
 }
 
-BigDecimal bd(long n)
+double bd(long n)
 {
- return new BigDecimal(n); 
+ return (double)n;
 }

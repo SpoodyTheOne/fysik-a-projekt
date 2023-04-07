@@ -1,14 +1,10 @@
-int SUBSTEPS_AMOUNT = 1;
+int SUBSTEPS_AMOUNT = 1000;
 int TRAIL_LENGTH = 140;
-BigDecimal G = bd("6.67408E-11");
+double G = 6.67408E-11;
 
-BigDecimal scaleFactor = bd(10000000L);
+double scaleFactor = 1000000000L;
 
 Vector viewOffset = new Vector(0,0);
-
-float timeSpeedMult = 1;
-
-double pp = 20;
 
 ArrayList<Body> Bodies = new ArrayList<Body>();
 
@@ -20,9 +16,11 @@ void setup()
   noStroke();
   smooth(2);
   
-  // Test planet
+  // The sUN!
   Bodies.add( new Body("0","0", "0","0", "1.989E30", "695508000", #ffffff) );
-  Bodies.add( new Body("1.495979E11", "0", "0", "29788", "5.972E24", "6371000", #0000ff) );
+  
+  // Earth
+  Bodies.add( new Body("1.495979E11", "0", "0", "-29788", "5.972E24", "6371000", #0000ff) );
   
   viewOffset = new Vector(-width/2, -height/2);
 }
@@ -53,7 +51,9 @@ void draw()
   
   fill(#00ff00);
   
-  text("Scale: " + scaleFactor.intValue(), 50, 50);
+  text("Scale: " + scaleFactor, 50, 50);
+  text("Time scale: x" + Time.timeScale(), 50,64);
+  text("Start: " + millis()/1000, 50,78);
   
 }
 
@@ -70,5 +70,5 @@ void mouseDragged()
 void mouseWheel(MouseEvent e)
 {
   
-  scaleFactor = scaleFactor.add(bd( e.getCount()).multiply(scaleFactor.divide(bd(100)) ));
+  scaleFactor = scaleFactor +  e.getCount() * (scaleFactor/100);
 }

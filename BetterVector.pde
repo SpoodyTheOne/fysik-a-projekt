@@ -1,24 +1,23 @@
-import java.math.MathContext;
-import java.math.RoundingMode;
+import java.lang.Math;
 
 class Vector
 {
-  BigDecimal y;
-  BigDecimal x;
+  double y;
+  double x;
 
   Vector(long _x, long _y)
   {
-    this.y = new BigDecimal(_y);
-    this.x = new BigDecimal(_x);
+    this.y = (_y);
+    this.x = (_x);
   }
 
   Vector(String _x, String _y)
   {
-    this.y = new BigDecimal(_y);
-    this.x = new BigDecimal(_x);
+    this.y = Double.parseDouble(_y);
+    this.x = Double.parseDouble(_x);
   }
 
-  Vector(BigDecimal _x, BigDecimal _y)
+  Vector(double _x, double _y)
   {
     this.x = _x;
     this.y = _y;
@@ -26,47 +25,47 @@ class Vector
 
   Vector add(Vector other)
   {
-    return new Vector(x.add(other.x), y.add(other.y));
+    return new Vector(x + (other.x), y + (other.y));
   }
 
   Vector sub(Vector other)
   {
-    return new Vector(x.subtract(other.x), y.subtract(other.y));
+    return new Vector(x - (other.x), y - (other.y));
   }
 
   Vector div(Vector other)
   {
-    return new Vector(x.divide(other.x, RoundingMode.HALF_UP), y.divide(other.y, RoundingMode.HALF_UP));
+    return new Vector(x / (other.x), y / (other.y));
   }
 
   Vector mult(Vector other)
   {
-    return new Vector(x.multiply(other.x), y.multiply(other.y));
+    return new Vector(x * (other.x), y * (other.y));
   }
 
-  Vector div(BigDecimal n)
+  Vector div(double n)
   {
-    return new Vector(x.divide(n, RoundingMode.HALF_UP), y.divide(n, RoundingMode.HALF_UP));
+    return new Vector(x / (n), y / (n));
   }
 
   Vector div(long n)
   {
-    return this.div(new BigDecimal(n));
+    return this.div((n));
   }
 
-  Vector mult(BigDecimal n)
+  Vector mult(double n)
   {
-    return new Vector(x.multiply(n), y.multiply(n));
+    return new Vector(x * (n), y * (n));
   }
 
   Vector mult(long n)
   {
-    return this.mult(new BigDecimal(n));
+    return this.mult((n));
   }
   
-  BigDecimal magnitude() 
+  double magnitude() 
   {
-    return (x.pow(2).add(y.pow(2))).sqrt(new MathContext(10, RoundingMode.HALF_UP));  
+    return java.lang.Math.sqrt(java.lang.Math.pow(x,2) + java.lang.Math.pow(y,2));
   }
   
   Vector normalized()
@@ -74,7 +73,7 @@ class Vector
     return div(magnitude());
   }
   
-  BigDecimal dist(Vector other)
+  double dist(Vector other)
   {
     return sub(other).magnitude(); 
   }
