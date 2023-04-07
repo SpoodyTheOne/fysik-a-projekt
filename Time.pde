@@ -12,7 +12,7 @@ public static class Time {
   
   public static void Tick(float millis)
   {
-    s_DeltaTime = (millis - s_LastFrameTime) / 1000;
+    s_DeltaTime = (millis - s_LastFrameTime) / 1E9;
     s_LastFrameTime = millis;
   }
 }

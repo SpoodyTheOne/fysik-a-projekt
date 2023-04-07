@@ -8,7 +8,7 @@ Vector viewOffset = new Vector(0,0);
 
 ArrayList<Body> Bodies = new ArrayList<Body>();
 
-PImage sky;
+long start = java.lang.System.nanoTime();
 
 void setup()
 {
@@ -16,9 +16,7 @@ void setup()
   background(0);
   color(0xff0000);
   noStroke();
-  smooth(2);
-  
-  sky = loadImage("background.png");
+  smooth(8);
   
   // The sUN!
   Bodies.add( new Body("0","0", "0","0", "1.989E30", "695508000", #ffffff) );
@@ -57,7 +55,7 @@ void draw()
   
   for (int i = 0; i < SUBSTEPS_AMOUNT; i++)
   {
-    Time.Tick(millis());
+    Time.Tick(java.lang.System.nanoTime() - start);
     
     for (Body body : Bodies)
     {
@@ -80,6 +78,7 @@ void draw()
   text("Scale: " + scaleFactor, 50, 50);
   text("Time scale: x" + Time.timeScale(), 50,64);
   text("Start: " + millis()/1000, 50,78);
+  text("fps: " + frameRate, 50,92);
   
 }
 
