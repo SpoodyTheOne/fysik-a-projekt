@@ -10,6 +10,20 @@ ArrayList<Body> Bodies = new ArrayList<Body>();
 
 long start = java.lang.System.nanoTime();
 
+int bodyIndex = 0;
+String[] Names = 
+{
+  "Solen",
+  "Merkur",
+  "Venus",
+  "Earth",
+  "Mars",
+  "Jupiter",
+  "Saturn",
+  "Uranus",
+  "Neptun"
+};
+
 void setup()
 {
   fullScreen();
@@ -79,6 +93,14 @@ void draw()
   text("Time scale: x" + Time.timeScale(), 50,64);
   text("Start: " + millis()/1000, 50,78);
   text("fps: " + frameRate, 50,92);
+ 
+  fill(Bodies.get(bodyIndex)._color);
+  
+  text(Names[bodyIndex], 50, 120);
+  text("Speed: " + Bodies.get(bodyIndex).vel.magnitude() + "m/s", 50, 134);
+  text("Mass: " + Bodies.get(bodyIndex).mass + "kg", 50, 148);
+  text("Radius: " + Bodies.get(bodyIndex).radius + "m", 50, 162);
+  text("Dist(sol): " + Bodies.get(bodyIndex).pos.sub(Bodies.get(0).pos).magnitude() + "m", 50, 176);
   
 }
 
@@ -96,4 +118,26 @@ void mouseWheel(MouseEvent e)
 {
   
   scaleFactor = scaleFactor +  e.getCount() * (scaleFactor/100);
+}
+
+void keyPressed()
+{
+
+  if (keyCode == UP)
+  {
+    Time.speedUp(); 
+  } else if (keyCode == DOWN)
+    Time.speedDown();
+  else if (keyCode == LEFT)
+  {
+    bodyIndex--;
+    if (bodyIndex < 0)
+     bodyIndex = Bodies.size() - 1;
+  } else if (keyCode == RIGHT)
+  {
+    bodyIndex++;
+    if (bodyIndex >= Bodies.size())
+      bodyIndex = 0;
+  }
+  
 }

@@ -2,12 +2,12 @@ import java.math.BigDecimal;
 
 class Body {
 
-  Vector pos;
-  Vector vel;
+  public Vector pos;
+  public Vector vel;
 
-  double mass;
-  double radius;
-  color _color;
+  public double mass;
+  public double radius;
+  public color _color;
 
   ArrayList<Vector> trailPoints = new ArrayList<Vector>();
 
